@@ -54,8 +54,10 @@ async function run() {
       const result = await cursor.toArray();
       res.send(result);
     });
-    app.get("/cart", async (req, res) => {
-      const cursor = cartCollection.find();
+    app.get("/cart/:email", async (req, res) => {
+      const email = req.params.email;
+      const filter = { email: email };
+      const cursor = cartCollection.find(filter);
       const result = await cursor.toArray();
       res.send(result);
     });
@@ -68,12 +70,12 @@ async function run() {
       const cursor = adCollection.find();
       const result = await cursor.toArray();
       res.send(result);
-    })
+    });
     app.get("/offers", async (req, res) => {
       const cursor = offersCollection.find();
       const result = await cursor.toArray();
       res.send(result);
-    })
+    });
 
     app.post("/products", async (req, res) => {
       const product = req.body;
