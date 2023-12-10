@@ -79,7 +79,16 @@ async function run() {
 
     app.post("/products", async (req, res) => {
       const product = req.body;
-      const result = await productsCollection.insertOne(product);
+      const productNew = {
+        name: product.name,
+        brand: product.brand,
+        price: product.price * 1,
+        type: product.type,
+        rating: product.rating * 1,
+        photo: product.photo,
+        description: product.description,
+      };
+      const result = await productsCollection.insertOne(productNew);
       res.send(result);
     });
     app.post("/cart", async (req, res) => {
